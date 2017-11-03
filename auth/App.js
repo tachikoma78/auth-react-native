@@ -1,57 +1,32 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- * @flow
- */
-
 import React, { Component } from 'react';
-import {
-  Platform,
-  StyleSheet,
-  Text,
-  View
-} from 'react-native';
+import { View } from 'react-native';
+import firebase from 'firebase'; 
+import { Header } from './src/components/common';
+import LoginForm from './src/components/LoginForm';
 
-const instructions = Platform.select({
-  ios: 'Press Cmd+R to reload,\n' +
-    'Cmd+D or shake for dev menu',
-  android: 'Double tap R on your keyboard to reload,\n' +
-    'Shake or press menu button for dev menu',
-});
+//class App extends Component<{}> {
+  class App extends Component {
+    // the best to call firebase is before rendering
+    // in a lifecycle method
+    componentWillMount() {
+      firebase.initializeApp({
+        apiKey: 'AIzaSyBaLU4hblpW0b4UA4Kdg6C29gEv_DOqrSM',
+        authDomain: 'auth-react-dc35d.firebaseapp.com',
+        databaseURL: 'https://auth-react-dc35d.firebaseio.com',
+        projectId: 'auth-react-dc35d',
+        storageBucket: 'auth-react-dc35d.appspot.com',
+        messagingSenderId: '902630849355'
+      });
+    }
 
-export default class App extends Component<{}> {
   render() {
     return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Welcome to React Native!
-        </Text>
-        <Text style={styles.instructions}>
-          To get started, edit App.js
-        </Text>
-        <Text style={styles.instructions}>
-          {instructions}
-        </Text>
+      <View>
+        <Header headerText="Authentication app" />
+        <LoginForm />
       </View>
     );
   }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
-});
+export default App;
